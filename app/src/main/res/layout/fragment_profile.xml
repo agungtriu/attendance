@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_background_bottom"
+    tools:context=".ui.home.profile.ProfileFragment">
+
+    <View
+        android:id="@+id/v_profile_background_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/profile_rectangle_rounded_right_bottom_32dp"
+        app:layout_constraintBottom_toTopOf="@id/v_profile_background_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="3" />
+
+    <View
+        android:id="@+id/v_profile_background_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_profile_background_top"
+        app:layout_constraintVertical_weight="6" />
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="-150dp"
+        android:layout_marginEnd="-100dp"
+        android:layout_marginBottom="@dimen/margin_all_medium"
+        android:background="@drawable/login_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_profile_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_all_large"
+        android:layout_marginTop="@dimen/margin_all_medium"
+        android:layout_marginEnd="@dimen/margin_all_medium"
+        android:text="@string/all_profile"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_all_title"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/iv_profile_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_profile_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_all_medium"
+        android:src="@mipmap/ic_pen"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_title"
+        app:layout_constraintEnd_toStartOf="@id/iv_profile_logout"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_title" />
+
+    <ImageView
+        android:id="@+id/iv_profile_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/margin_all_medium"
+        android:src="@mipmap/ic_logout"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profile_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toTopOf="@id/tv_profile_title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrains_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_all_medium"
+        android:layout_marginTop="@dimen/margin_all_large"
+        android:background="@drawable/all_rectangle_rounded_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_title">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_medium"
+            android:layout_marginTop="@dimen/margin_all_large"
+            android:foreground="@drawable/profile_rectangle_white"
+            android:src="@mipmap/ic_profile_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_medium"
+            android:layout_marginTop="@dimen/margin_all_medium"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/all_text_title"
+            android:textSize="@dimen/text_all_desc"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+        <ProgressBar
+            android:id="@+id/pb_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+        <TextView
+            android:id="@+id/tv_profile_profession"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_medium"
+            android:layout_marginTop="@dimen/margin_all_medium"
+            android:layout_marginBottom="@dimen/margin_all_xlarge"
+            android:text="@string/profile_programmer"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/all_text"
+            android:textSize="@dimen/text_all_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_profile_general"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_all_medium"
+        android:layout_marginTop="@dimen/margin_all_medium"
+        android:text="@string/profile_general"
+        android:textAllCaps="true"
+        android:textColor="@color/all_text"
+        android:textSize="@dimen/text_all_desc"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constrains_profile" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrains_no_karyawan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_all_medium"
+        android:layout_marginTop="@dimen/margin_all_medium"
+        android:background="@drawable/all_rectangle_rounded_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_profile_general">
+
+        <ImageView
+            android:id="@+id/iv_profile_no_karyawan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_all_small"
+            android:layout_marginStart="@dimen/margin_all_small"
+            android:background="@drawable/all_rectangle_rounded_gray_5dp"
+            android:padding="@dimen/margin_all_medium"
+            android:src="@mipmap/ic_no_karyawan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_profile_no_karyawan_title"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_no_karyawan_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_small"
+            android:layout_marginTop="@dimen/margin_all_small"
+            android:text="@string/profile_no_karyawan"
+            android:textSize="@dimen/text_all_desc"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="5"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_no_karyawan"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_no_karyawan_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_small"
+            android:layout_marginVertical="@dimen/margin_all_small"
+            android:text="@string/profile_placeholder_nokaryawan"
+            android:textSize="@dimen/text_all_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_no_karyawan"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_no_karyawan_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrains_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_all_medium"
+        android:layout_marginTop="@dimen/margin_all_medium"
+        android:background="@drawable/all_rectangle_rounded_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constrains_no_karyawan">
+
+        <ImageView
+            android:id="@+id/iv_profile_address"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_all_small"
+            android:layout_marginStart="@dimen/margin_all_small"
+            android:background="@drawable/all_rectangle_rounded_gray_5dp"
+            android:padding="@dimen/margin_all_medium"
+            android:src="@mipmap/ic_address"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_profile_address_title"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_address_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_small"
+            android:layout_marginTop="@dimen/margin_all_small"
+            android:text="@string/profile_address"
+            android:textSize="@dimen/text_all_desc"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="5"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_address"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_address_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_small"
+            android:layout_marginVertical="@dimen/margin_all_small"
+            android:text="@string/profile_placeholder_address"
+            android:textSize="@dimen/text_all_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_address"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_address_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrains_changepassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_all_medium"
+        android:layout_marginTop="@dimen/margin_all_medium"
+        android:background="@drawable/all_rectangle_rounded_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constrains_address">
+
+        <ImageView
+            android:id="@+id/iv_profile_changepassword"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/margin_all_small"
+            android:layout_marginStart="@dimen/margin_all_small"
+            android:background="@drawable/all_rectangle_rounded_gray_5dp"
+            android:padding="@dimen/margin_all_medium"
+            android:src="@mipmap/ic_password"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_profile_changepassword_title"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_changepassword_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_small"
+            android:layout_marginTop="@dimen/margin_all_small"
+            android:text="@string/profile_change_password"
+            android:textSize="@dimen/text_all_desc"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="5"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_changepassword"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile_changepassword_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_all_small"
+            android:layout_marginVertical="@dimen/margin_all_small"
+            android:text="@string/all_star"
+            android:textSize="@dimen/text_all_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_changepassword"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_changepassword_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

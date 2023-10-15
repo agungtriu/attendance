@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#0063C6</color>
+    <color name="all_background_bottom">#F8F9F9</color>
+    <color name="all_text">#77869E</color>
+    <color name="all_background_top">#0047CC</color>
+    <color name="all_text_title">#042C5C</color>
+    <color name="login_background">#0062CD</color>
+    <color name="login_btn_loginnow">#FFC33A</color>
+    <color name="login_text_btn">#414B5A</color>
+    <color name="history_text_title">#042C5C</color>
+    <color name="home_check_in">#11C04D</color>
+    <color name="home_checkout">#F7B500</color>
+</resources>
