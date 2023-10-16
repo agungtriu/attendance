@@ -71,7 +71,8 @@ class HomeFragment : Fragment() {
         }
         binding.btnHomeCheckIn.setOnClickListener {
             if (selectedPosition < 0) {
-                Toast.makeText(activity, "Please select location!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,
+                    getString(R.string.home_please_select_location), Toast.LENGTH_SHORT).show()
             } else {
                 checkOutVisible()
                 viewModel.checkIn(
