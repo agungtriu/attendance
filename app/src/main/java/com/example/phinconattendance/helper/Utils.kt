@@ -1,5 +1,6 @@
 package com.example.phinconattendance.helper
 
+import android.annotation.SuppressLint
 import android.text.Selection
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,6 +12,8 @@ import android.view.View
 import android.widget.TextView
 import com.example.phinconattendance.R
 import com.example.phinconattendance.data.firebase.Entity
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class Utils {
     companion object {
@@ -46,9 +49,31 @@ class Utils {
         }
 
         val Location = listOf(
-            Entity(1, "PT Phincon", "88 @Kasablanka Office Tower, 8th Floor Jl Casablanca Raya Kav 88, Tebet, Jakarta 12870, Indonesia", R.mipmap.ic_phincon),
-            Entity(2, "Telkomsel Smart Office", "Jl. Gatot Subroto No.Kav. 52, RT.6/RW.1, Kuningan Bar., Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12710", R.mipmap.ic_telkomsel),
+            Entity(
+                1,
+                "PT Phincon",
+                "88 @Kasablanka Office Tower, 8th Floor Jl Casablanca Raya Kav 88, Tebet, Jakarta 12870, Indonesia",
+                R.mipmap.ic_phincon
+            ),
+            Entity(
+                2,
+                "Telkomsel Smart Office",
+                "Jl. Gatot Subroto No.Kav. 52, RT.6/RW.1, Kuningan Bar., Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12710",
+                R.mipmap.ic_telkomsel
+            ),
             Entity(3, "Rumah", "Jakarta", R.mipmap.ic_rumah)
         )
+
+        @SuppressLint("SimpleDateFormat")
+        fun millisToTime(timeStamp: Long) : String {
+            val dateFormat = SimpleDateFormat("HH:mm")
+
+            // Convert the timestamp to a Date object
+            val date = Date(timeStamp)
+
+            // Format the date as a string
+            return dateFormat.format(date)
+
+        }
     }
 }

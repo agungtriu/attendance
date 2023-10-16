@@ -7,6 +7,7 @@ import com.example.phinconattendance.data.firebase.Firebase
 import com.example.phinconattendance.vo.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDateTime
+import java.time.ZoneId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,6 +17,8 @@ class DayViewModel @Inject constructor(private val firebase: Firebase) : ViewMod
             .minusHours(LocalDateTime.now().hour.toLong())
             .minusMinutes(LocalDateTime.now().minute.toLong())
             .minusSeconds(LocalDateTime.now().second.toLong())
-        return firebase.getHistory(days)
+
+        val millis = days.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        return firebase.getHistory(millis)
     }
 }

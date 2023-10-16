@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
-import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -103,7 +102,7 @@ class Firebase @Inject constructor() {
         attendanceData["address"] = location.address
         attendanceData["locationId"] = location.id
         attendanceData["userId"] = auth.currentUser!!.uid
-        attendanceData["dateTime"] = LocalDateTime.now()
+        attendanceData["dateTime"] = System.currentTimeMillis()
         attendanceDocument.add(attendanceData)
     }
 
@@ -115,11 +114,11 @@ class Firebase @Inject constructor() {
         attendanceData["address"] = location.address
         attendanceData["locationId"] = location.id
         attendanceData["userId"] = auth.currentUser!!.uid
-        attendanceData["dateTime"] = LocalDateTime.now()
+        attendanceData["dateTime"] = System.currentTimeMillis()
         attendanceDocument.add(attendanceData)
     }
 
-    fun getHistory(targetDate: LocalDateTime): LiveData<Resource<List<Entity>>> {
+    fun getHistory(targetDate: Long): LiveData<Resource<List<Entity>>> {
         val results = MutableLiveData<Resource<List<Entity>>>()
         results.postValue(Resource.loading(null))
         if (auth.currentUser != null) {
@@ -133,11 +132,8 @@ class Firebase @Inject constructor() {
                 val logs = mutableListOf<Entity>()
                 for (log in it.documents) {
                     val id = log["locationId"] as Long
-                    val dateTime = log["dateTime"] as HashMap<*, *>
-                    val amPM = if (dateTime["hour"] as Long >= 12) "PM" else "AM"
-                    val minute = if (dateTime["minute"] as Long <= 9) "0${dateTime["minute"]}" else "${dateTime["minute"]}"
-                    val time = "${dateTime["hour"]}:${minute} $amPM"
-                    val title = "${log["status"]} - ${log["title"]} - $time"
+                    val dateTime = log["dateTime"] as Long
+                    val title = "${log["status"]} - ${log["title"]} - ${Utils.millisToTime(dateTime)}"
                     val image = Utils.Location[id.toInt() - 1].image
                     logs.add(
                         Entity(
