@@ -26,22 +26,22 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val splashTime: Long = 2000
         Handler(Looper.getMainLooper()).postDelayed({
-            splashScreenViewModel.getOnboarding().observe(this) {
-                var intent: Intent
-                if (it) {
-                    splashScreenViewModel.isLogin().observe(this) { isLogin ->
-                        if (isLogin) {
-                            intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                            intent = Intent(this, LoginActivity::class.java)
-                            startActivity(intent)
-                        }
+            var intent: Intent
+            if (splashScreenViewModel.getOnboarding()) {
+                splashScreenViewModel.isLogin().observe(this) { isLogin ->
+                    if (isLogin) {
+                        intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
-                } else {
-                    intent = Intent(this, OnboardingActivity::class.java)
-                    startActivity(intent)
                 }
+            } else {
+                intent = Intent(this, OnboardingActivity::class.java)
+                startActivity(intent)
                 finish()
             }
         }, splashTime)
