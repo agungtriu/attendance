@@ -149,7 +149,6 @@
             android:layout_marginBottom="@dimen/margin_all_medium"
             android:backgroundTint="@color/login_btn_loginnow"
             android:text="@string/login_loginnow"
-            android:textAllCaps="true"
             android:textColor="@color/login_text_btn"
             app:cornerRadius="5dp"
             app:layout_constraintBottom_toTopOf="@id/tv_login_donthaveaccount"

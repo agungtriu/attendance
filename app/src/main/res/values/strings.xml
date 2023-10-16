@@ -12,7 +12,7 @@
     <string name="all_login">Login</string>
     <string name="all_signup">Sign Up</string>
     <string name="login_title">Welcome to Login</string>
-    <string name="login_desc">Please fill Username &amp; password to login your app account</string>
+    <string name="login_desc">Please fill email &amp; password to login your app account</string>
     <string name="all_email">Email</string>
     <string name="all_password">Password</string>
     <string name="all_star">***********</string>
