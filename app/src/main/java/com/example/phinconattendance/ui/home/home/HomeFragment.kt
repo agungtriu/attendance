@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
                 val currentTime = System.currentTimeMillis()
                 binding.tvHomeHour.text = Utils.millisToTime(currentTime)
                 binding.tvHomeDate.text = Utils.millisToDate(currentTime)
-                handler.postDelayed(this, 1000*60)
+                handler.postDelayed(this, 1000)
             }
         })
     }
