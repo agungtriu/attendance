@@ -1,6 +1,8 @@
 package com.example.phinconattendance.ui.home.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
+    private val handler = Handler(Looper.getMainLooper())
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,8 +35,8 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        updateTime()
         listener()
-
         locationAdapter = LocationAdapter()
         binding.rvHomeLocation.layoutManager = LinearLayoutManager(view?.context)
         binding.rvHomeLocation.setHasFixedSize(true)
@@ -49,6 +52,17 @@ class HomeFragment : Fragment() {
             }
         }
         return root
+    }
+
+    private fun updateTime() {
+        handler.post(object : Runnable {
+            override fun run() {
+                val currentTime = System.currentTimeMillis()
+                binding.tvHomeHour.text = Utils.millisToTime(currentTime)
+                binding.tvHomeDate.text = Utils.millisToDate(currentTime)
+                handler.postDelayed(this, 1000*60)
+            }
+        })
     }
 
     private fun listener() {
@@ -110,6 +124,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        handler.removeCallbacksAndMessages(null)
         _binding = null
     }
 }

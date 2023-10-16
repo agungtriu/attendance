@@ -57,7 +57,7 @@
     <string name="home_hour_placeholder">09:00</string>
     <string name="item_location_placeholder_title">PT. Phincon</string>
     <string name="item_location_placeholder_desc">Office. 88 @Kasablanca</string>
-    <string name="home_hour_title">Hour :</string>
+    <string name="home_hour_title">Hour: </string>
     <string name="home_location">Location</string>
     <string name="home_title">Your Attendance</string>
     <string name="day">Day</string>

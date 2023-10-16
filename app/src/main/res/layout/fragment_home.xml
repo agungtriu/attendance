@@ -97,26 +97,22 @@
         app:layout_constraintStart_toStartOf="@id/v_home_data"
         app:layout_constraintTop_toTopOf="@id/v_home_data" />
 
-    <TextClock
-        android:id="@+id/tc_home_hour"
+    <TextView
+        android:id="@+id/tv_home_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:format24Hour="HH:mm"
         android:text="@string/home_hour_placeholder"
         android:textColor="@color/all_text"
         app:layout_constraintBottom_toBottomOf="@id/tv_home_hour_title"
         app:layout_constraintStart_toEndOf="@id/tv_home_hour_title"
         app:layout_constraintTop_toTopOf="@id/tv_home_hour_title" />
 
-    <TextClock
+    <TextView
         android:id="@+id/tv_home_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="@dimen/margin_all_medium"
         android:layout_marginEnd="@dimen/margin_all_medium"
-        android:format24Hour="dd MMM yyyy"
         android:text="@string/home_date_placeholder"
         android:textColor="@color/all_text"
         app:layout_constraintEnd_toEndOf="@id/v_home_data"
