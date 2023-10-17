@@ -81,6 +81,9 @@ class RegisterActivity : AppCompatActivity() {
                                 getString(R.string.register_successful),
                                 Toast.LENGTH_SHORT
                             ).show()
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
 
                         Status.ERROR -> {
