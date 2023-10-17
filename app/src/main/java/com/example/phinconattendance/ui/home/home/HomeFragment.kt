@@ -21,7 +21,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
     private val handler = Handler(Looper.getMainLooper())
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -43,12 +42,12 @@ class HomeFragment : Fragment() {
         binding.rvHomeLocation.adapter = locationAdapter
         viewModel.getCheckInStatus().observe(viewLifecycleOwner) {
             if (it.isCheckIn) {
-                locationAdapter.setLocation(listOf(Utils.Location[it.position]))
+                locationAdapter.setLocation(listLocation = listOf(Utils.Location[it.position]),  isCheckIn = true, isCheckOut = false)
                 selectedPosition = it.position
                 checkOutVisible()
             } else {
                 checkInVisible()
-                locationAdapter.setLocation(Utils.Location)
+                locationAdapter.setLocation(listLocation =  Utils.Location, isCheckIn = false, isCheckOut = false)
             }
         }
         return root
@@ -80,7 +79,7 @@ class HomeFragment : Fragment() {
                     selectedPosition
                 )
                 locationAdapter.notifyItemChanged(selectedPosition)
-                locationAdapter.setLocation(listOf(Utils.Location[selectedPosition]))
+                locationAdapter.setLocation(listLocation = listOf(Utils.Location[selectedPosition]),isCheckIn = true,isCheckOut=false)
             }
 
         }
@@ -88,8 +87,9 @@ class HomeFragment : Fragment() {
             locationAdapter.notifyItemChanged(0)
             checkInVisible()
             viewModel.checkOut(Utils.Location[selectedPosition])
-            locationAdapter.setLocation(Utils.Location)
+            locationAdapter.setLocation(listLocation = Utils.Location, isCheckIn = false,isCheckOut = true)
             locationAdapter.notifyItemChanged(selectedPosition)
+            selectedPosition=-1
         }
 
         binding.rvHomeLocation.addOnItemTouchListener(

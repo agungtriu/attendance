@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.phinconattendance.databinding.FragmentDayBinding
-import com.example.phinconattendance.ui.home.home.LocationAdapter
+import com.example.phinconattendance.ui.home.history.HistoryAdapter
 import com.example.phinconattendance.vo.Status
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +22,7 @@ class DayFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private lateinit var locationAdapter: LocationAdapter
+    private lateinit var historyAdapter: HistoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +31,10 @@ class DayFragment : Fragment() {
         _binding = FragmentDayBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        locationAdapter = LocationAdapter()
+        historyAdapter = HistoryAdapter()
         binding.rvDay.layoutManager = LinearLayoutManager(view?.context)
         binding.rvDay.setHasFixedSize(true)
-        binding.rvDay.adapter = locationAdapter
+        binding.rvDay.adapter = historyAdapter
         getData()
 
         return root
@@ -47,7 +47,7 @@ class DayFragment : Fragment() {
                 Status.SUCCESS -> {
                     hideProgressBar()
                     if (!it.data.isNullOrEmpty()) {
-                        locationAdapter.setLocation(it.data)
+                        historyAdapter.setHistory(it.data)
                     }
                 }
 

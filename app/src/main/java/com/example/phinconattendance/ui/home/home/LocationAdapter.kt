@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phinconattendance.R
 import com.example.phinconattendance.data.firebase.Entity
-import com.example.phinconattendance.databinding.ItemLocationBinding
+import com.example.phinconattendance.databinding.ItemListBinding
 
 class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>() {
     private val listLocation = ArrayList<Entity>()
+    private var isCheckOut = false
+    private var isCheckIn = false
 
-    fun setLocation(listLocation: List<Entity>) {
+    fun setLocation(listLocation: List<Entity>, isCheckIn: Boolean, isCheckOut: Boolean) {
         val diffCallback = AccountDiffCallback(this.listLocation, listLocation)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         if (this.listLocation.isNotEmpty()) {
@@ -20,13 +22,17 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
         this.listLocation.addAll(listLocation)
 
         diffResult.dispatchUpdatesTo(this)
+
+            this.isCheckIn = isCheckIn
+
+            this.isCheckOut = isCheckOut
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): LocationAdapter.LocationViewHolder = LocationViewHolder(
-        ItemLocationBinding.inflate(
+        ItemListBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
     )
@@ -38,17 +44,21 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
 
     override fun getItemCount(): Int = listLocation.size
 
-    inner class LocationViewHolder(private val binding: ItemLocationBinding) :
+    inner class LocationViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Entity) {
             with(binding) {
-                ivItemLocation.setImageResource(item.image)
-                tvItemLocationTitle.text = item.title
-                tvItemLocationDesc.text = item.address
-                if (listLocation.size==1){
+                if (isCheckOut){
+                    itemView.isActivated = false
+                }
+
+                ivItemList.setImageResource(item.image)
+                tvItemListTitle.text = item.title
+                tvItemListDesc.text = item.address
+                if (isCheckIn){
                     cvLocation.setBackgroundResource(R.drawable.all_rectangle_rounded_orange_10dp)
-                    tvItemLocationTitle.setTextColor(itemView.context.getColor(R.color.white))
-                    tvItemLocationDesc.setTextColor(itemView.context.getColor(R.color.white))
+                    tvItemListTitle.setTextColor(itemView.context.getColor(R.color.white))
+                    tvItemListDesc.setTextColor(itemView.context.getColor(R.color.white))
                 } else {
                     cvLocation.setBackgroundResource(R.drawable.selector_item_background)
                 }

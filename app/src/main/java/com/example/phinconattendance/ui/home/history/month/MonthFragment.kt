@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.phinconattendance.databinding.FragmentMonthBinding
-import com.example.phinconattendance.ui.home.home.LocationAdapter
+import com.example.phinconattendance.ui.home.history.HistoryAdapter
 import com.example.phinconattendance.vo.Status
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +21,7 @@ class MonthFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private lateinit var locationAdapter: LocationAdapter
+    private lateinit var historyAdapter: HistoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +30,10 @@ class MonthFragment : Fragment() {
         _binding = FragmentMonthBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        locationAdapter = LocationAdapter()
+        historyAdapter = HistoryAdapter()
         binding.rvMonth.layoutManager = LinearLayoutManager(view?.context)
         binding.rvMonth.setHasFixedSize(true)
-        binding.rvMonth.adapter = locationAdapter
+        binding.rvMonth.adapter = historyAdapter
         getData()
 
         return root
@@ -46,7 +46,7 @@ class MonthFragment : Fragment() {
                 Status.SUCCESS -> {
                     hideProgressBar()
                     if (!it.data.isNullOrEmpty()) {
-                        locationAdapter.setLocation(it.data)
+                        historyAdapter.setHistory(it.data)
                     }
                 }
 
