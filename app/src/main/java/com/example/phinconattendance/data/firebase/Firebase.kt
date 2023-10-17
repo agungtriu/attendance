@@ -133,7 +133,8 @@ class Firebase @Inject constructor() {
                 for (log in it.documents) {
                     val id = log["locationId"] as Long
                     val dateTime = log["dateTime"] as Long
-                    val title = "${log["status"]} - ${log["title"]} - ${Utils.millisToTime(dateTime)}"
+                    val title =
+                        "${log["status"]} - ${log["title"]} - ${Utils.millisToTime(dateTime)}"
                     val image = Utils.Location[id.toInt() - 1].image
                     logs.add(
                         Entity(

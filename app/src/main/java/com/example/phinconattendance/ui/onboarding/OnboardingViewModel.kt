@@ -8,7 +8,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor(private val dataStore: DataStoreManager) : ViewModel() {
+class OnboardingViewModel @Inject constructor(private val dataStore: DataStoreManager) :
+    ViewModel() {
 
     fun saveOnboardingStatus() {
         viewModelScope.launch {

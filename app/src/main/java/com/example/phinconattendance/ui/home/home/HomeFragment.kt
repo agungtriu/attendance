@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
     private val handler = Handler(Looper.getMainLooper())
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -42,12 +43,20 @@ class HomeFragment : Fragment() {
         binding.rvHomeLocation.adapter = locationAdapter
         viewModel.getCheckInStatus().observe(viewLifecycleOwner) {
             if (it.isCheckIn) {
-                locationAdapter.setLocation(listLocation = listOf(Utils.Location[it.position]),  isCheckIn = true, isCheckOut = false)
+                locationAdapter.setLocation(
+                    listLocation = listOf(Utils.Location[it.position]),
+                    isCheckIn = true,
+                    isCheckOut = false
+                )
                 selectedPosition = it.position
                 checkOutVisible()
             } else {
                 checkInVisible()
-                locationAdapter.setLocation(listLocation =  Utils.Location, isCheckIn = false, isCheckOut = false)
+                locationAdapter.setLocation(
+                    listLocation = Utils.Location,
+                    isCheckIn = false,
+                    isCheckOut = false
+                )
             }
         }
         return root
@@ -70,8 +79,10 @@ class HomeFragment : Fragment() {
         }
         binding.btnHomeCheckIn.setOnClickListener {
             if (selectedPosition < 0) {
-                Toast.makeText(activity,
-                    getString(R.string.home_please_select_location), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    getString(R.string.home_please_select_location), Toast.LENGTH_SHORT
+                ).show()
             } else {
                 checkOutVisible()
                 viewModel.checkIn(
@@ -79,7 +90,11 @@ class HomeFragment : Fragment() {
                     selectedPosition
                 )
                 locationAdapter.notifyItemChanged(selectedPosition)
-                locationAdapter.setLocation(listLocation = listOf(Utils.Location[selectedPosition]),isCheckIn = true,isCheckOut=false)
+                locationAdapter.setLocation(
+                    listLocation = listOf(Utils.Location[selectedPosition]),
+                    isCheckIn = true,
+                    isCheckOut = false
+                )
             }
 
         }
@@ -87,9 +102,13 @@ class HomeFragment : Fragment() {
             locationAdapter.notifyItemChanged(0)
             checkInVisible()
             viewModel.checkOut(Utils.Location[selectedPosition])
-            locationAdapter.setLocation(listLocation = Utils.Location, isCheckIn = false,isCheckOut = true)
+            locationAdapter.setLocation(
+                listLocation = Utils.Location,
+                isCheckIn = false,
+                isCheckOut = true
+            )
             locationAdapter.notifyItemChanged(selectedPosition)
-            selectedPosition=-1
+            selectedPosition = -1
         }
 
         binding.rvHomeLocation.addOnItemTouchListener(

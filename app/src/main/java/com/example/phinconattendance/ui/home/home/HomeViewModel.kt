@@ -13,7 +13,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val dataStore: DataStoreManager, private val firebase: Firebase) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val dataStore: DataStoreManager,
+    private val firebase: Firebase
+) : ViewModel() {
     fun checkIn(location: Entity, position: Int) {
         firebase.checkIn(location)
         viewModelScope.launch {

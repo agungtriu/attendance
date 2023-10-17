@@ -8,6 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgotPasswordViewModel @Inject constructor(private val firebase: Firebase): ViewModel() {
+class ForgotPasswordViewModel @Inject constructor(private val firebase: Firebase) : ViewModel() {
     fun forgotPassword(email: String): LiveData<Resource<String>> = firebase.forgotPassword(email)
 }

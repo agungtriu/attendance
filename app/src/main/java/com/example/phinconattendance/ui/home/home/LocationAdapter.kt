@@ -23,9 +23,9 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
 
         diffResult.dispatchUpdatesTo(this)
 
-            this.isCheckIn = isCheckIn
+        this.isCheckIn = isCheckIn
 
-            this.isCheckOut = isCheckOut
+        this.isCheckOut = isCheckOut
     }
 
     override fun onCreateViewHolder(
@@ -48,14 +48,14 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Entity) {
             with(binding) {
-                if (isCheckOut){
+                if (isCheckOut) {
                     itemView.isActivated = false
                 }
 
                 ivItemList.setImageResource(item.image)
                 tvItemListTitle.text = item.title
                 tvItemListDesc.text = item.address
-                if (isCheckIn){
+                if (isCheckIn) {
                     cvLocation.setBackgroundResource(R.drawable.all_rectangle_rounded_orange_10dp)
                     tvItemListTitle.setTextColor(itemView.context.getColor(R.color.white))
                     tvItemListDesc.setTextColor(itemView.context.getColor(R.color.white))

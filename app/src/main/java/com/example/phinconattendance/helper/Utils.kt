@@ -65,7 +65,7 @@ class Utils {
         )
 
         @SuppressLint("SimpleDateFormat")
-        fun millisToTime(timeInMillis: Long) : String {
+        fun millisToTime(timeInMillis: Long): String {
             val timeFormat = SimpleDateFormat("HH:mm")
 
             // Convert the timestamp to a Date object

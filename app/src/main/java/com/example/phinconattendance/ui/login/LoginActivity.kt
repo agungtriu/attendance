@@ -41,16 +41,18 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                loginViewModel.login(email, password).observe(this){
+                loginViewModel.login(email, password).observe(this) {
                     when (it.status) {
                         Status.LOADING -> showProgressBar()
                         Status.SUCCESS -> {
                             hideProgressBar()
                             val intent = Intent(this, HomeActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
                             finish()
                         }
+
                         Status.ERROR -> {
                             hideProgressBar()
                             Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
@@ -72,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun showProgressBar() {
         binding.pbLogin.visibility = View.VISIBLE
     }

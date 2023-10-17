@@ -11,7 +11,10 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashScreenViewModel @Inject constructor(private val dataStore: DataStoreManager, private val firebase: Firebase) : ViewModel() {
+class SplashScreenViewModel @Inject constructor(
+    private val dataStore: DataStoreManager,
+    private val firebase: Firebase
+) : ViewModel() {
     fun getOnboarding(): Boolean {
         val status: Boolean
         runBlocking(Dispatchers.IO) {
@@ -19,5 +22,6 @@ class SplashScreenViewModel @Inject constructor(private val dataStore: DataStore
         }
         return status
     }
+
     fun isLogin(): LiveData<Boolean> = firebase.isLogin()
 }

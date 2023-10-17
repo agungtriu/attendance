@@ -41,6 +41,7 @@ class ProfileFragment : Fragment() {
                     hideProgressBar()
                     binding.tvProfileName.text = it.data
                 }
+
                 Status.ERROR -> {
                     hideProgressBar()
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()

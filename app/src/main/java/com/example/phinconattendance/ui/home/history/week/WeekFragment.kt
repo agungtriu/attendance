@@ -57,6 +57,7 @@ class WeekFragment : Fragment() {
             }
         }
     }
+
     private fun showProgressBar() {
         binding.pbWeek.visibility = View.VISIBLE
     }
