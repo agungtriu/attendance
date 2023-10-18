@@ -2,8 +2,7 @@ package com.example.phinconattendance.ui.splashscreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.phinconattendance.data.datastore.DataStoreManager
-import com.example.phinconattendance.data.firebase.Firebase
+import com.example.phinconattendance.data.RepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -12,16 +11,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashScreenViewModel @Inject constructor(
-    private val dataStore: DataStoreManager,
-    private val firebase: Firebase
+    private val repositoryImp: RepositoryImp
 ) : ViewModel() {
     fun getOnboarding(): Boolean {
         val status: Boolean
         runBlocking(Dispatchers.IO) {
-            status = dataStore.getOnboardingStatus().first()
+            status = repositoryImp.getOnboardingStatus().first()
         }
         return status
     }
 
-    fun isLogin(): LiveData<Boolean> = firebase.isLogin()
+    fun isLogin(): LiveData<Boolean> = repositoryImp.isLogin()
 }
