@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.phinconattendance.R
 import com.example.phinconattendance.databinding.FragmentHomeBinding
 import com.example.phinconattendance.helper.Utils
+import com.example.phinconattendance.vo.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -84,31 +85,62 @@ class HomeFragment : Fragment() {
                     getString(R.string.home_please_select_location), Toast.LENGTH_SHORT
                 ).show()
             } else {
-                checkOutVisible()
                 viewModel.checkIn(
-                    Utils.Location[selectedPosition],
-                    selectedPosition
-                )
-                locationAdapter.notifyItemChanged(selectedPosition)
-                locationAdapter.setLocation(
-                    listLocation = listOf(Utils.Location[selectedPosition]),
-                    isCheckIn = true,
-                    isCheckOut = false
-                )
-            }
+                    Utils.Location[selectedPosition]
+                ).observe(viewLifecycleOwner) {
+                    when (it.status) {
+                        Status.LOADING -> showProgressBar()
+                        Status.SUCCESS -> {
+                            hideProgressBar()
+                            checkOutVisible()
+                            viewModel.saveCheckInStatus(selectedPosition)
+                            locationAdapter.notifyItemChanged(selectedPosition)
+                            locationAdapter.setLocation(
+                                listLocation = listOf(Utils.Location[selectedPosition]),
+                                isCheckIn = true,
+                                isCheckOut = false
+                            )
+                        }
 
+                        Status.ERROR -> {
+                            hideProgressBar()
+                            Toast.makeText(
+                                activity,
+                                it.message, Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
         }
         binding.btnHomeCheckout.setOnClickListener {
-            locationAdapter.notifyItemChanged(0)
-            checkInVisible()
-            viewModel.checkOut(Utils.Location[selectedPosition])
-            locationAdapter.setLocation(
-                listLocation = Utils.Location,
-                isCheckIn = false,
-                isCheckOut = true
-            )
-            locationAdapter.notifyItemChanged(selectedPosition)
-            selectedPosition = -1
+            viewModel.checkOut(Utils.Location[selectedPosition]).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.LOADING -> showProgressBar()
+                    Status.SUCCESS -> {
+                        hideProgressBar()
+                        checkInVisible()
+                        viewModel.saveCheckOutStatus()
+                        locationAdapter.notifyItemChanged(0)
+                        locationAdapter.setLocation(
+                            listLocation = Utils.Location,
+                            isCheckIn = false,
+                            isCheckOut = true
+                        )
+                        locationAdapter.notifyItemChanged(selectedPosition)
+                        selectedPosition = -1
+
+                    }
+
+                    Status.ERROR -> {
+                        hideProgressBar()
+                        Toast.makeText(
+                            activity,
+                            it.message, Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
 
         binding.rvHomeLocation.addOnItemTouchListener(
@@ -140,6 +172,14 @@ class HomeFragment : Fragment() {
     private fun checkOutVisible() {
         binding.btnHomeCheckIn.visibility = View.GONE
         binding.btnHomeCheckout.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        binding.pbHome.visibility = View.GONE
+    }
+
+    private fun showProgressBar() {
+        binding.pbHome.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

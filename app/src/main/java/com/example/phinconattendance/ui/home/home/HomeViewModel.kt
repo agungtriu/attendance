@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.phinconattendance.data.RepositoryImp
 import com.example.phinconattendance.data.datastore.CheckInModel
-import com.example.phinconattendance.data.firebase.Entity
+import com.example.phinconattendance.data.firebase.LocationEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,8 +15,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repositoryImp: RepositoryImp
 ) : ViewModel() {
-    fun checkIn(location: Entity, position: Int) {
+    fun checkIn(location: LocationEntity) =
         repositoryImp.checkIn(location)
+
+    fun saveCheckInStatus(position: Int) {
         viewModelScope.launch {
             repositoryImp.saveCheckInStatus(CheckInModel(isCheckIn = true, position = position))
         }
@@ -26,8 +28,10 @@ class HomeViewModel @Inject constructor(
         return repositoryImp.getCheckInStatus().asLiveData()
     }
 
-    fun checkOut(location: Entity) {
+    fun checkOut(location: LocationEntity) =
         repositoryImp.checkOut(location)
+
+    fun saveCheckOutStatus() {
         viewModelScope.launch {
             repositoryImp.saveCheckOutStatus()
         }

@@ -11,7 +11,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import com.example.phinconattendance.R
-import com.example.phinconattendance.data.firebase.Entity
+import com.example.phinconattendance.data.firebase.LocationEntity
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -49,19 +49,19 @@ class Utils {
         }
 
         val Location = listOf(
-            Entity(
+            LocationEntity(
                 1,
                 "PT Phincon",
                 "88 @Kasablanka Office Tower, 8th Floor Jl Casablanca Raya Kav 88, Tebet, Jakarta 12870, Indonesia",
                 R.mipmap.ic_phincon
             ),
-            Entity(
+            LocationEntity(
                 2,
                 "Telkomsel Smart Office",
                 "Jl. Gatot Subroto No.Kav. 52, RT.6/RW.1, Kuningan Bar., Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12710",
                 R.mipmap.ic_telkomsel
             ),
-            Entity(3, "Rumah", "Jakarta", R.mipmap.ic_rumah)
+            LocationEntity(3, "Rumah", "Jakarta", R.mipmap.ic_rumah)
         )
 
         @SuppressLint("SimpleDateFormat")

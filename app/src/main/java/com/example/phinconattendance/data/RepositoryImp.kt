@@ -3,8 +3,9 @@ package com.example.phinconattendance.data
 import androidx.lifecycle.LiveData
 import com.example.phinconattendance.data.datastore.CheckInModel
 import com.example.phinconattendance.data.datastore.DataStoreManager
-import com.example.phinconattendance.data.firebase.Entity
+import com.example.phinconattendance.data.firebase.AttendanceEntity
 import com.example.phinconattendance.data.firebase.Firebase
+import com.example.phinconattendance.data.firebase.LocationEntity
 import com.example.phinconattendance.vo.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -33,11 +34,13 @@ class RepositoryImp @Inject constructor(
 
     override fun signOut() = firebase.signOut()
 
-    override fun checkIn(location: Entity) = firebase.checkIn(location)
+    override fun checkIn(location: LocationEntity): LiveData<Resource<String>> =
+        firebase.checkIn(location)
 
-    override fun checkOut(location: Entity) = firebase.checkOut(location)
+    override fun checkOut(location: LocationEntity): LiveData<Resource<String>> =
+        firebase.checkOut(location)
 
-    override fun getHistory(targetDate: Long): LiveData<Resource<List<Entity>>> =
+    override fun getHistory(targetDate: Long): LiveData<Resource<List<AttendanceEntity>>> =
         firebase.getHistory(targetDate)
 
     override fun getOnboardingStatus(): Flow<Boolean> = dataStoreManager.getOnboardingStatus()

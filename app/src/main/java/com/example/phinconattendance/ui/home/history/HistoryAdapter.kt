@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phinconattendance.R
-import com.example.phinconattendance.data.firebase.Entity
+import com.example.phinconattendance.data.firebase.AttendanceEntity
 import com.example.phinconattendance.databinding.ItemListBinding
-import com.example.phinconattendance.ui.home.home.AccountDiffCallback
+import com.example.phinconattendance.helper.Utils
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
-    private val listHistories = ArrayList<Entity>()
+    private val listHistories = ArrayList<AttendanceEntity>()
 
-    fun setHistory(listLocation: List<Entity>) {
+    fun setHistory(listLocation: List<AttendanceEntity>) {
         val diffCallback = AccountDiffCallback(this.listHistories, listLocation)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         if (this.listHistories.isNotEmpty()) {
@@ -41,10 +41,13 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
 
     inner class HistoryViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Entity) {
+        fun bind(item: AttendanceEntity) {
             with(binding) {
-                ivItemList.setImageResource(item.image)
-                tvItemListTitle.text = item.title
+                ivItemList.setImageResource(Utils.Location[item.locationId - 1].image)
+                val time = Utils.millisToTime(item.dateTime)
+                val hour = if (time.split(":")[0].toInt() < 12) "AM" else "PM"
+                val title = "${item.status} - ${item.title} - $time $hour"
+                tvItemListTitle.text = title
                 tvItemListDesc.text = item.address
                 cvLocation.setBackgroundResource(R.drawable.all_rectangle_rounded_10dp)
             }

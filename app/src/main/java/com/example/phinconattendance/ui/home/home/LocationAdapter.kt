@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phinconattendance.R
-import com.example.phinconattendance.data.firebase.Entity
+import com.example.phinconattendance.data.firebase.LocationEntity
 import com.example.phinconattendance.databinding.ItemListBinding
 
 class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>() {
-    private val listLocation = ArrayList<Entity>()
+    private val listLocation = ArrayList<LocationEntity>()
     private var isCheckOut = false
     private var isCheckIn = false
 
-    fun setLocation(listLocation: List<Entity>, isCheckIn: Boolean, isCheckOut: Boolean) {
+    fun setLocation(listLocation: List<LocationEntity>, isCheckIn: Boolean, isCheckOut: Boolean) {
         val diffCallback = AccountDiffCallback(this.listLocation, listLocation)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         if (this.listLocation.isNotEmpty()) {
@@ -46,7 +46,7 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
 
     inner class LocationViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Entity) {
+        fun bind(item: LocationEntity) {
             with(binding) {
                 if (isCheckOut) {
                     itemView.isActivated = false

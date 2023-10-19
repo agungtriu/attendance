@@ -3,7 +3,7 @@ package com.example.phinconattendance.ui.home.history.day
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.phinconattendance.data.RepositoryImp
-import com.example.phinconattendance.data.firebase.Entity
+import com.example.phinconattendance.data.firebase.AttendanceEntity
 import com.example.phinconattendance.vo.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDateTime
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DayViewModel @Inject constructor(private val repositoryImp: RepositoryImp) : ViewModel() {
-    fun getDayHistory(): LiveData<Resource<List<Entity>>> {
+    fun getDayHistory(): LiveData<Resource<List<AttendanceEntity>>> {
         val days = LocalDateTime.now()
             .minusHours(LocalDateTime.now().hour.toLong())
             .minusMinutes(LocalDateTime.now().minute.toLong())

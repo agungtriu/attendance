@@ -2,7 +2,6 @@ package com.example.phinconattendance.data.firebase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.phinconattendance.helper.Utils
 import com.example.phinconattendance.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -94,32 +93,53 @@ class Firebase @Inject constructor() {
         auth.signOut()
     }
 
-    fun checkIn(location: Entity) {
+    fun checkIn(location: LocationEntity): LiveData<Resource<String>> {
+        val result = MutableLiveData<Resource<String>>()
+        result.postValue(Resource.loading(null))
         val attendanceDocument = db.collection("attendance")
-        val attendanceData = HashMap<String, Any>()
-        attendanceData["title"] = location.title
-        attendanceData["status"] = "Check In"
-        attendanceData["address"] = location.address
-        attendanceData["locationId"] = location.id
-        attendanceData["userId"] = auth.currentUser!!.uid
-        attendanceData["dateTime"] = System.currentTimeMillis()
-        attendanceDocument.add(attendanceData)
+        val attendance = AttendanceEntity(
+            title = location.title,
+            status = "Check In",
+            address = location.address,
+            locationId = location.id,
+            userId = auth.currentUser!!.uid,
+            dateTime = System.currentTimeMillis()
+        )
+        attendanceDocument.add(attendance)
+            .addOnSuccessListener {
+                result.postValue(Resource.success(null))
+            }
+            .addOnFailureListener {
+                result.postValue(Resource.error(it.message, null))
+            }
+        return result
     }
 
-    fun checkOut(location: Entity) {
+    fun checkOut(location: LocationEntity): LiveData<Resource<String>> {
+        val result = MutableLiveData<Resource<String>>()
+        result.postValue(Resource.loading(null))
         val attendanceDocument = db.collection("attendance")
-        val attendanceData = HashMap<String, Any>()
-        attendanceData["title"] = location.title
-        attendanceData["status"] = "Check Out"
-        attendanceData["address"] = location.address
-        attendanceData["locationId"] = location.id
-        attendanceData["userId"] = auth.currentUser!!.uid
-        attendanceData["dateTime"] = System.currentTimeMillis()
-        attendanceDocument.add(attendanceData)
+        val attendance = AttendanceEntity(
+            title = location.title,
+            status = "Check Out",
+            address = location.address,
+            locationId = location.id,
+            userId = auth.currentUser!!.uid,
+            dateTime = System.currentTimeMillis()
+        )
+        attendanceDocument.add(attendance)
+            .addOnSuccessListener {
+                result.postValue(Resource.success(null))
+            }
+            .addOnFailureListener {
+                result.postValue(Resource.error(it.message, null))
+            }
+
+        return result
     }
 
-    fun getHistory(targetDate: Long): LiveData<Resource<List<Entity>>> {
-        val results = MutableLiveData<Resource<List<Entity>>>()
+    fun getHistory(targetDate: Long): LiveData<Resource<List<AttendanceEntity>>> {
+        val results = MutableLiveData<Resource<List<AttendanceEntity>>>()
         results.postValue(Resource.loading(null))
         if (auth.currentUser != null) {
             val userId = auth.currentUser!!.uid
@@ -129,19 +149,16 @@ class Firebase @Inject constructor() {
                 .orderBy("dateTime", Query.Direction.DESCENDING)
 
             query.get().addOnSuccessListener {
-                val logs = mutableListOf<Entity>()
+                val logs = mutableListOf<AttendanceEntity>()
                 for (log in it.documents) {
-                    val id = log["locationId"] as Long
-                    val dateTime = log["dateTime"] as Long
-                    val title =
-                        "${log["status"]} - ${log["title"]} - ${Utils.millisToTime(dateTime)}"
-                    val image = Utils.Location[id.toInt() - 1].image
                     logs.add(
-                        Entity(
-                            id = id.toInt(),
-                            title = title,
+                        AttendanceEntity(
+                            title = log["title"] as String,
+                            status = log["status"] as String,
                             address = log["address"] as String,
-                            image = image
+                            locationId = (log["locationId"] as Long).toInt(),
+                            userId = log["userId"] as String,
+                            dateTime = log["dateTime"] as Long
                         )
                     )
                 }
