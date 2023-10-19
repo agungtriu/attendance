@@ -64,7 +64,6 @@
     <string name="week">Week</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
-    <string name="all_no_internet">You\'re not connected to the internet</string>
     <string name="login_forgot_password">Forgot password ?</string>
     <string name="profile_programmer">Programmer</string>
     <string name="forgotpassword_desc">Please fill email to reset your account</string>
