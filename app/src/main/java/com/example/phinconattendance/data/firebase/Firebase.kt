@@ -66,9 +66,9 @@ class Firebase @Inject constructor() {
             userDocumentRef.get().addOnSuccessListener {
                 if (it.exists()) {
                     val user = it.toObject(UserEntity::class.java)
-                    if (user!=null){
+                    if (user != null) {
                         result.postValue(Resource.success(user))
-                    } else{
+                    } else {
                         result.postValue(Resource.error("Data not found", null))
                     }
                 }
@@ -154,8 +154,8 @@ class Firebase @Inject constructor() {
             query.get().addOnSuccessListener {
                 val logs = mutableListOf<AttendanceEntity>()
                 for (document in it.documents) {
-                    val log =document.toObject(AttendanceEntity::class.java)
-                    if (log!=null){
+                    val log = document.toObject(AttendanceEntity::class.java)
+                    if (log != null) {
                         logs.add(log)
                     }
                 }
