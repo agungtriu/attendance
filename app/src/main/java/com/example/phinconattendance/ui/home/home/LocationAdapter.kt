@@ -57,8 +57,6 @@ class LocationAdapter : RecyclerView.Adapter<LocationAdapter.LocationViewHolder>
                 tvItemListDesc.text = item.address
                 if (isCheckIn) {
                     cvLocation.setBackgroundResource(R.drawable.all_rectangle_rounded_orange_10dp)
-                    tvItemListTitle.setTextColor(itemView.context.getColor(R.color.white))
-                    tvItemListDesc.setTextColor(itemView.context.getColor(R.color.white))
                 } else {
                     cvLocation.setBackgroundResource(R.drawable.selector_item_background)
                 }
