@@ -6,6 +6,7 @@ import com.example.phinconattendance.data.datastore.DataStoreManager
 import com.example.phinconattendance.data.firebase.AttendanceEntity
 import com.example.phinconattendance.data.firebase.Firebase
 import com.example.phinconattendance.data.firebase.LocationEntity
+import com.example.phinconattendance.data.firebase.UserEntity
 import com.example.phinconattendance.vo.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -27,7 +28,7 @@ class RepositoryImp @Inject constructor(
 
     override fun isLogin(): LiveData<Boolean> = firebase.isLogin()
 
-    override fun getFullName(): LiveData<Resource<String>> = firebase.getFullName()
+    override fun getFullName(): LiveData<Resource<UserEntity>> = firebase.getFullName()
 
     override fun forgotPassword(email: String): LiveData<Resource<String>> =
         firebase.forgotPassword(email)

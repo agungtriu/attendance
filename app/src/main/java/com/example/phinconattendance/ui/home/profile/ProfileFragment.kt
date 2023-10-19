@@ -39,7 +39,7 @@ class ProfileFragment : Fragment() {
                 Status.LOADING -> showProgressBar()
                 Status.SUCCESS -> {
                     hideProgressBar()
-                    binding.tvProfileName.text = it.data
+                    binding.tvProfileName.text = it.data?.fullName ?: ""
                 }
 
                 Status.ERROR -> {

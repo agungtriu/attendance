@@ -18,9 +18,7 @@ class Firebase @Inject constructor() {
         val userId = auth.currentUser?.uid
         if (userId != null) {
             val userDocument = db.collection("users").document(userId)
-            val userData = HashMap<String, Any>()
-            userData["fullName"] = fullName
-            userDocument.set(userData, SetOptions.merge())
+            userDocument.set(UserEntity(fullName = fullName), SetOptions.merge())
         }
     }
 
@@ -59,15 +57,20 @@ class Firebase @Inject constructor() {
         return result
     }
 
-    fun getFullName(): LiveData<Resource<String>> {
-        val result = MutableLiveData<Resource<String>>()
+    fun getFullName(): LiveData<Resource<UserEntity>> {
+        val result = MutableLiveData<Resource<UserEntity>>()
         result.postValue(Resource.loading(null))
         val userId = auth.currentUser?.uid
         if (userId != null) {
             val userDocumentRef = db.collection("users").document(userId)
             userDocumentRef.get().addOnSuccessListener {
                 if (it.exists()) {
-                    result.postValue(Resource.success(it.getString("fullName")))
+                    val user = it.toObject(UserEntity::class.java)
+                    if (user!=null){
+                        result.postValue(Resource.success(user))
+                    } else{
+                        result.postValue(Resource.error("Data not found", null))
+                    }
                 }
             }.addOnFailureListener {
                 result.postValue(Resource.error(it.message, null))
@@ -150,17 +153,11 @@ class Firebase @Inject constructor() {
 
             query.get().addOnSuccessListener {
                 val logs = mutableListOf<AttendanceEntity>()
-                for (log in it.documents) {
-                    logs.add(
-                        AttendanceEntity(
-                            title = log["title"] as String,
-                            status = log["status"] as String,
-                            address = log["address"] as String,
-                            locationId = (log["locationId"] as Long).toInt(),
-                            userId = log["userId"] as String,
-                            dateTime = log["dateTime"] as Long
-                        )
-                    )
+                for (document in it.documents) {
+                    val log =document.toObject(AttendanceEntity::class.java)
+                    if (log!=null){
+                        logs.add(log)
+                    }
                 }
                 results.postValue(Resource.success(logs))
             }.addOnFailureListener {
