@@ -2,8 +2,10 @@ package com.example.phinconattendance.ui.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.example.phinconattendance.databinding.ActivityOnboardingBinding
 import com.example.phinconattendance.ui.login.LoginActivity
 import com.example.phinconattendance.ui.register.RegisterActivity
@@ -29,9 +31,7 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun listener() {
         binding.tvOnboardingSkip.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            binding.vpOnboardingSlide.currentItem = adapter.count-1
         }
 
         binding.btnOnboardingLogin.setOnClickListener {
@@ -45,5 +45,21 @@ class OnboardingActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        binding.vpOnboardingSlide.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position == adapter.count - 1) {
+                    binding.tvOnboardingSkip.visibility = View.GONE
+                } else {
+                    binding.tvOnboardingSkip.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+        })
     }
 }
