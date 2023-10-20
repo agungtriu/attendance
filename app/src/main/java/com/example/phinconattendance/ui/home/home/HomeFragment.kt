@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
                 locationAdapter.setLocation(
                     listLocation = Utils.Location,
                     isCheckIn = false,
-                    isCheckOut = false
+                    isCheckOut = true
                 )
             }
         }
@@ -127,9 +127,7 @@ class HomeFragment : Fragment() {
                             isCheckIn = false,
                             isCheckOut = true
                         )
-                        locationAdapter.notifyItemChanged(selectedPosition)
                         selectedPosition = -1
-
                     }
 
                     Status.ERROR -> {
